@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="MySQL - black_ice_project@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="2.6">
+    <schema id="1" name="black_ice_project">
+      <visible>1</visible>
+    </schema>
+    <schema id="2" name="golf_tournament_app_development"/>
+    <schema id="3" name="golf_tournament_app_test"/>
+    <schema id="4" name="information_schema"/>
+    <schema id="5" name="mysql"/>
+    <schema id="6" name="performance_schema"/>
+    <schema id="7" name="sys"/>
+    <table id="8" parent="1" name="raw_data"/>
+    <column id="9" parent="8" name="date_gmt">
+      <mandatory>1</mandatory>
+      <data-type>datetime|0</data-type>
+    </column>
+    <column id="10" parent="8" name="date_local">
+      <mandatory>1</mandatory>
+      <data-type>datetime|0</data-type>
+    </column>
+    <column id="11" parent="8" name="temp_c">
+      <mandatory>1</mandatory>
+      <data-type>int(11)|0</data-type>
+    </column>
+    <column id="12" parent="8" name="temp_f">
+      <mandatory>1</mandatory>
+      <data-type>int(11)|0</data-type>
+    </column>
+    <column id="13" parent="8" name="feelslike_c">
+      <mandatory>1</mandatory>
+      <data-type>int(11)|0</data-type>
+    </column>
+    <column id="14" parent="8" name="feelslike_f">
+      <mandatory>1</mandatory>
+      <data-type>int(11)|0</data-type>
+    </column>
+    <column id="15" parent="8" name="pop">
+      <mandatory>1</mandatory>
+      <data-type>int(11)|0</data-type>
+    </column>
+    <column id="16" parent="8" name="wind_dir">
+      <mandatory>1</mandatory>
+      <data-type>linestring|0</data-type>
+    </column>
+    <column id="17" parent="8" name="windsp_km">
+      <mandatory>1</mandatory>
+      <data-type>int(11)|0</data-type>
+    </column>
+    <column id="18" parent="8" name="windsp_m">
+      <mandatory>1</mandatory>
+      <data-type>int(11)|0</data-type>
+    </column>
+    <column id="19" parent="8" name="windgust_km">
+      <mandatory>1</mandatory>
+      <data-type>int(11)|0</data-type>
+    </column>
+    <column id="20" parent="8" name="windgust_m">
+      <mandatory>1</mandatory>
+      <data-type>int(11)|0</data-type>
+    </column>
+    <column id="21" parent="8" name="fxicon">
+      <mandatory>1</mandatory>
+      <data-type>int(11)|0</data-type>
+    </column>
+    <column id="22" parent="8" name="fx_condition">
+      <mandatory>1</mandatory>
+      <data-type>linestring|0</data-type>
+    </column>
+  </database-model>
+</dataSource>
