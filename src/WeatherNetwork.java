@@ -3,79 +3,145 @@
  */
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import javax.net.ssl.HttpsURLConnection;
+import java.sql.*;
 
 public class WeatherNetwork {
 
+    public static String weather_array[] = new String[361];
+    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    static final String DB_URL = "jdbc:mysql://localhost:3306/black_ice_project";
+    static final String USER = "root";
+    static final String PASS = "";
+
+
     public static void main(String[] args) throws Exception{
-        toronto();
-        //brampton();
+        getTorontoWeather();
+        insert_into_db();
+        //print_buffer();
     }
-    public static void toronto() throws Exception {
-        String url = "http://wx.api.pelmorex.com/weather/HourlyForecasts/CA/ON/m5g2e4?user_key=e24f7a1fbd181484fa86ba0ddecdf284";
+    public static void getTorontoWeather() throws Exception {
 
-        URL obj = new URL(url);
-        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+        /*
+            This code is Written by Seyan Kumaresan, based on the tutorial available on Mykong.com [4]
+         */
 
-        // optional default is GET
-        con.setRequestMethod("GET");
+        String requestUrl = "http://wx.api.pelmorex.com/weather/HourlyForecasts/CA/ON/m5g2e4?user_key=e24f7a1fbd181484fa86ba0ddecdf284";
 
-        int responseCode = con.getResponseCode();
-        System.out.println("\nSending 'GET' request to URL : " + url);
-        System.out.println("Response Code : " + responseCode);
+        URL url = new URL(requestUrl);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(con.getInputStream()));
+        conn.setRequestMethod("GET");
+
+        BufferedReader inReader = new BufferedReader(
+                new InputStreamReader(conn.getInputStream()));
         String inputLine;
         StringBuilder response = new StringBuilder();
 
-        while ((inputLine = in.readLine()) != null) {
+        while ((inputLine = inReader.readLine()) != null) {
             response.append(inputLine);
         }
 
         String temp = response.toString();
 
-        for(char c : temp.toCharArray()){
-            System.out.print(c);
-            if(c == '{' || c == '[' || c == ',')
-                System.out.print("\n");
-        }
+        extract(temp);
+    }
 
+    public static void extract(String temp){
+
+        /*
+            This is original code, written by Seyan Kumaresan
+         */
+
+        String buffer = "";
+        int flag = 0;
+        char c_prev = 'S';
+        int index = 0;
+
+        for(char c : temp.toCharArray()){
+            if(c == '"' && c_prev == ':'){
+
+               weather_array[index] = buffer;
+               index += 1;
+               buffer = "";
+               flag = 1;
+
+
+                if(index == 361) {
+                    break;
+                }
+            } else {
+                if(flag == 1){
+                    if(c == ',') {
+                        flag = 0;
+                    }else if (c != '"' && c != '}' && c != ']') {
+                        buffer += c;
+                    }
+                }
+            }
+
+            c_prev = c;
+        }
 
     }
 
-    public static void brampton() throws Exception{
-        String url = "http://wx.api.pelmorex.com/weather/HourlyForecasts/CA/ON/Brampton?user_key=e24f7a1fbd181484fa86ba0ddecdf284";
 
-        URL obj = new URL(url);
-        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+    public static void print_buffer(){
+        for(int i = 0; i < 361; i += 1){
+            System.out.println(weather_array[i]);
+        }
+    }
 
-        // optional default is GET
-        con.setRequestMethod("GET");
+    public static void insert_into_db(){
 
-        int responseCode = con.getResponseCode();
-        System.out.println("\nSending 'GET' request to URL : " + url);
-        System.out.println("Response Code : " + responseCode);
+        /*
+            This is original code, written by Seyan Kumaresan
+         */
 
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuilder response = new StringBuilder();
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
 
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/black_ice_project", "root", "");
+            Statement stmt = null;
+
+            stmt = conn.createStatement();
+
+            int i = 0;
+
+            for(i = 0; i < 360; i+= 15){
+
+
+                String sql = "INSERT INTO raw_data VALUES ('" + weather_array[2 + i] + "', '" +
+                        weather_array[3 + i] + "', " + Integer.parseInt(weather_array[4 + i]) +
+                        ", " + Integer.parseInt(weather_array[5 + i]) +
+                        ", " + Integer.parseInt(weather_array[6 + i]) +
+                        ", " + Integer.parseInt(weather_array[7 + i]) +
+                        ", " + Integer.parseInt(weather_array[8 + i]) +
+                        ", '" + weather_array[9 + i] + "', " + Integer.parseInt(weather_array[10 + i]) +
+                        ", " + Integer.parseInt(weather_array[11 + i]) +
+                        ", " + Integer.parseInt(weather_array[12 + i]) +
+                        ", " + Integer.parseInt(weather_array[13 + i]) +
+                        ", " + Integer.parseInt(weather_array[14 + i]) +
+                        ", '" + weather_array[15 + i] + "')";
+
+                System.out.println(sql);
+
+                stmt.execute(sql);
+
+                System.out.println("INSERT");
+
+            }
+
+
+        }catch (SQLException se){
+            se.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
-        System.out.println(response.toString());
-        in.close();
+
     }
 }
 
