@@ -13,7 +13,15 @@ public class CreateTable{
 
             stmt = conn.createStatement();
 
-            String sql = "CREATE TABLE raw_data "+
+            String sql = "CREATE DATABASE black_ice_project";
+
+            System.out.println(sql);
+
+            stmt.execute(sql);
+
+            System.out.println("Created Database");
+
+            sql = "CREATE TABLE raw_data "+
                     "(time_gmt DATETIME, " +
                     "time_local DATETIME, " +
                     "temp_c INT(11), " +
@@ -33,7 +41,7 @@ public class CreateTable{
 
             stmt.execute(sql);
 
-            System.out.println("Create");
+            System.out.println("Created Table");
 
 
         }catch (SQLException se){
