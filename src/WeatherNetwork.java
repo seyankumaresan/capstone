@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.*;
+import java.io.*;
 
 public class WeatherNetwork {
 
@@ -18,17 +19,24 @@ public class WeatherNetwork {
 
 
     public static void main(String[] args) throws Exception{
-        getTorontoWeather();
-        insert_into_db();
+        String neighbourhoods[] = new String[140];
+        readFile(neighbourhoods);
+
+        for(int i = 0; i < 140; i++) {
+            getTorontoWeather(neighbourhoods[i]);
+            insert_into_db(neighbourhoods[i]);
+        }
         //print_buffer();
     }
-    public static void getTorontoWeather() throws Exception {
+
+    public static void getTorontoWeather(String location) throws Exception {
 
         /*
             This code is Written by Seyan Kumaresan, based on the tutorial available on Mykong.com [4]
          */
+        String location_modified = removeSpaces(location);
 
-        String requestUrl = "http://wx.api.pelmorex.com/weather/HourlyForecasts/CA/ON/m5g2e4?user_key=e24f7a1fbd181484fa86ba0ddecdf284";
+        String requestUrl = "http://wx.api.pelmorex.com/weather/HourlyForecasts/CA/ON/" + location_modified + "?user_key=e24f7a1fbd181484fa86ba0ddecdf284";
 
         URL url = new URL(requestUrl);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -94,11 +102,13 @@ public class WeatherNetwork {
         }
     }
 
-    public static void insert_into_db(){
+    public static void insert_into_db(String location_old){
 
         /*
             This is original code, written by Seyan Kumaresan
          */
+
+        String location = removeApostrophe(location_old);
 
         try{
             Class.forName("com.mysql.jdbc.Driver");
@@ -114,7 +124,7 @@ public class WeatherNetwork {
 
 
                 String sql = "INSERT INTO raw_data VALUES ('" + weather_array[2 + i] + "', '" +
-                        weather_array[3 + i] + "', " + Integer.parseInt(weather_array[4 + i]) +
+                        weather_array[3 + i] + "', '" + location + "', " + Integer.parseInt(weather_array[4 + i]) +
                         ", " + Integer.parseInt(weather_array[5 + i]) +
                         ", " + Integer.parseInt(weather_array[6 + i]) +
                         ", " + Integer.parseInt(weather_array[7 + i]) +
@@ -130,8 +140,6 @@ public class WeatherNetwork {
 
                 stmt.execute(sql);
 
-                System.out.println("INSERT");
-
             }
 
 
@@ -141,7 +149,57 @@ public class WeatherNetwork {
             e.printStackTrace();
         }
 
+    }
 
+    public static String removeSpaces(String location){
+        char c;
+        String modified = "";
+        for(int i = 0; i < location.length(); i++){
+            c = location.charAt(i);
+
+            if(c == ' '){
+                modified = modified.concat(Character.toString('_'));
+            } else {
+                modified = modified.concat(Character.toString(c));
+            }
+        }
+
+        return modified;
+    }
+
+    public static void readFile(String[] neighbourhoods){
+        int i = 0;
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("neighbourhoods.txt"));
+
+            String line = br.readLine();
+
+            while (line != null) {
+                neighbourhoods[i] = line.toString();
+                line = br.readLine();
+                i++;
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String removeApostrophe(String location){
+        char c;
+        String modified = "";
+        for(int i = 0; i < location.length(); i++){
+            c = location.charAt(i);
+
+            if(c == '\''){
+                modified = modified.concat(Character.toString(c));
+                modified = modified.concat(Character.toString(c));
+            } else {
+                modified = modified.concat(Character.toString(c));
+            }
+        }
+
+        return modified;
     }
 }
 

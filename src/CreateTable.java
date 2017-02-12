@@ -24,6 +24,7 @@ public class CreateTable{
             sql = "CREATE TABLE raw_data "+
                     "(time_gmt DATETIME, " +
                     "time_local DATETIME, " +
+                    "neighbourhood TEXT, " +
                     "temp_c INT(11), " +
                     "temp_f INT(11), " +
                     "feels_c INT (11), " +
