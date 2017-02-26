@@ -8,7 +8,7 @@ public class CreateTable{
         try{
             Class.forName("com.mysql.jdbc.Driver");
 
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/black_ice_project", "root", "");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/black_ice_project?useSSL=false", "root", "pass");
             Statement stmt = null;
 
             stmt = conn.createStatement();
@@ -17,7 +17,7 @@ public class CreateTable{
 
             System.out.println(sql);
 
-            stmt.execute(sql);
+            //stmt.execute(sql);
 
             System.out.println("Created Database");
 
@@ -27,8 +27,8 @@ public class CreateTable{
                     "neighbourhood TEXT, " +
                     "temp_c INT(11), " +
                     "temp_f INT(11), " +
-                    "feels_c INT (11), " +
-                    "fells_f INT (11), " +
+                    "feels_c INT(11), " +
+                    "fells_f INT(11), " +
                     "pop INT(11), " +
                     "wind_dir TEXT, " +
                     "wind_sp_k INT(11), " +
@@ -36,7 +36,7 @@ public class CreateTable{
                     "wind_gust_k INT(11), " +
                     "wind_gust_m INT(11), " +
                     "fxicon INT(11), " +
-                    "desc TEXT)";
+                    "`desc` TEXT);";
 
             System.out.println(sql);
 
