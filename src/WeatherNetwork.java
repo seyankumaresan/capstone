@@ -17,8 +17,12 @@ public class WeatherNetwork {
     static final String USER = "root";
     static final String PASS = "pass";
 
+    public static void main(String[] args) throws Exception {
+        checkLastUpdate();
+    }
 
-    public static void main(String[] args) throws Exception{
+
+    public static void insert() throws Exception{
         String neighbourhoods[] = new String[140];
         readFile(neighbourhoods);
 
@@ -26,7 +30,6 @@ public class WeatherNetwork {
             getTorontoWeather(neighbourhoods[i]);
             insert_into_db(neighbourhoods[i]);
         }
-        //print_buffer();
     }
 
     public static void getTorontoWeather(String location) throws Exception {
@@ -123,7 +126,10 @@ public class WeatherNetwork {
             for(i = 0; i < 360; i+= 15){
 
 
-                String sql = "INSERT INTO raw_data VALUES ('" + weather_array[2 + i] + "', '" +
+                String sql = "INSERT INTO raw_data (time_gmt, time_local, neighbourhood," +
+                        "temp_c, temp_f, feels_c, feels_f, pop, wind_dir," +
+                        "wind_sp_k, wind_sp_m, wind_gust_k, wind_gust_m," +
+                        "fxicon," + "raw_data.desc" + ") VALUES ('" + weather_array[2 + i] + "', '" +
                         weather_array[3 + i] + "', '" + location + "', " + Integer.parseInt(weather_array[4 + i]) +
                         ", " + Integer.parseInt(weather_array[5 + i]) +
                         ", " + Integer.parseInt(weather_array[6 + i]) +
@@ -200,6 +206,53 @@ public class WeatherNetwork {
         }
 
         return modified;
+    }
+
+    public static void checkLastUpdate() throws Exception{
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/black_ice_project", "root", "");
+            Statement stmt = null;
+
+            stmt = conn.createStatement();
+
+            String sql = "SELECT * FROM black_ice_project.raw_data ORDER BY ID DESC LIMIT 1";
+
+            ResultSet result = stmt.executeQuery(sql);
+
+            String sqlData = "";
+
+            if(result.next()){
+                sqlData = result.getString("time_local");
+            }
+
+            if(sqlData.equals("")){
+                insert();
+                return;
+            }
+
+            sqlData = sqlData.substring(0, 19);
+
+            Timestamp lastDate = Timestamp.valueOf(sqlData);
+
+            Timestamp current = new Timestamp(System.currentTimeMillis());
+
+            long last_time = lastDate.getTime();
+            long current_time = current.getTime();
+
+            if((current_time - last_time) >= 43200000){
+                insert();
+            } else {
+                System.out.println("Database has been updated within 12 hours");
+            }
+
+        }catch (SQLException se){
+            se.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        //insert();
     }
 }
 
