@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Simple Polygon</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+
+      #floating-panel {
+      	position: absolute;
+      	top: 10px;
+      	left: 25%;
+      	z-index: 5;
+      	background-color: #fff;
+      	padding: 5px;
+      	border: 1px solid #999;
+      	text-align: center;
+      	font-family: 'Roboto','sans-serif';
+      	line-height: 30px;
+      	padding-left: 10px;
+      }
+
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <div id="floating-panel">
+    	<input type="range" id="hourValue" min="0" max="23" value="0" onchange="updateMap(this.value)" />
+    	<span id="range">0</span>
+
+    </div>
+    <script type="text/javascript">
+
+      var map;
+
+	  // This script will open the points.json file and extract co-ordinates for each wards
+  	  function initMap() {
+    		map = new google.maps.Map(document.getElementById('map'), {
+    			zoom: 12,
+    			center: {lat: 43.7144, lng: -79.3572},
+    			mapTypeId: 'terrain'});
+    		
+    		map.data.setStyle(function(feature)
+    		{
+    			var SNOW = feature.getProperty('SNOW');
+    			var color = "green";
+
+
+    			if (SNOW[0] == "Y")
+    			{
+    				color = "#B33A3A";
+    			}
+    			return {
+    				fillColor: color,
+    				strokeWeight: 0.25,
+    				strokeOpacity: 0.25,
+    				fillOpacity: 0.75
+    			}
+    		});
+
+    		map.data.loadGeoJson('./neighbourhoods.geojson');
+
+    		animate();
+
+  	  }
+
+  	  function updateMap(newValue)
+  	  {
+  	  	document.getElementById("range").innerHTML = newValue;
+		map.data.setStyle(function(feature)
+		{
+			var SNOW = feature.getProperty('SNOW');
+			var color = "green";
+
+
+			if (SNOW[newValue] == "Y")
+			{
+				color = "#B33A3A";
+			}
+			return {
+				fillColor: color,
+				strokeWeight: 0.25,
+				strokeOpacity: 0.25,
+				fillOpacity: 0.75
+			}
+		});
+
+  	  }
+
+  	  function animate()
+  	  {
+  	  	var val = 0;
+  	  	var slider = document.getElementById("hourValue");
+  	  	var one = function(){
+  	  		slider.value = val;
+  	  		setTimeout(function(){
+  	  			val = val + 1;
+  	  			slider.value = val;
+  	  			slider.change();
+  	  			if (val < 23)
+  	  			{
+  	  				one();
+  	  			}
+  	  		}, 200)
+  	  	}
+  	  }
+	
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqdX5LBXEAYaRuKVzNObtn0XItF_WvkBQ&callback=initMap">
+    </script>
+  </body>
+</html>
