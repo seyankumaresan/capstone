@@ -19,7 +19,7 @@ Princess-Rosethorn
 Eringate-Centennial-West Deane
 Edenbridge-Humber Valley
 Rockcliffe-Smythe
-Markland Woods
+Markland Wood
 Etobicoke West Mall
 Islington-City Centre West
 Alderwood
@@ -46,7 +46,7 @@ Kensington-Chinatown
 Waterfront Communities-The Island
 Annex
 Wychwood
-Corsa Italia-Davenport
+Corso Italia-Davenport
 Oakwood-Vaughan
 Humewood-Cedarvale
 Casa Loma

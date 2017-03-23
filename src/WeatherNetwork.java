@@ -39,6 +39,8 @@ public class WeatherNetwork {
          */
         String location_modified = removeSpaces(location);
 
+        System.out.println("Requesting for " + location_modified);
+
         String requestUrl = "http://wx.api.pelmorex.com/weather/HourlyForecasts/CA/ON/" + location_modified + "?user_key=e24f7a1fbd181484fa86ba0ddecdf284";
 
         URL url = new URL(requestUrl);
@@ -58,6 +60,7 @@ public class WeatherNetwork {
         String temp = response.toString();
 
         extract(temp);
+
     }
 
     public static void extract(String temp){
