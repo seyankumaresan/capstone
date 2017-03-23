@@ -13,9 +13,9 @@ public class WeatherNetwork {
 
     public static String weather_array[] = new String[361];
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost:3306/black_ice_project";
+    static final String DB_URL = "jdbc:mysql://localhost:3306/black_ice_project?useSSL=false";
     static final String USER = "root";
-    static final String PASS = "";
+    static final String PASS = "pass";
 
     public static void main(String[] args) throws Exception {
         checkLastUpdate();
@@ -119,7 +119,7 @@ public class WeatherNetwork {
         try{
             Class.forName("com.mysql.jdbc.Driver");
 
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/black_ice_project", "root", "");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/black_ice_project?useSSL=false", "root", "pass");
             Statement stmt = null;
 
             stmt = conn.createStatement();
@@ -179,7 +179,7 @@ public class WeatherNetwork {
     public static void readFile(String[] neighbourhoods){
         int i = 0;
         try {
-            BufferedReader br = new BufferedReader(new FileReader("neighbourhoods.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("../neighbourhoods.txt"));
 
             String line = br.readLine();
 

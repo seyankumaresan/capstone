@@ -1,0 +1,140 @@
+Trinity-Bellwoods;Y
+West Humber-Clairville;Y
+Mount Olive-Silverstone-Jamestown;Y
+Humber Summit;Y
+Thistletown-Beaumond Heights;Y
+Humbermede;Y
+Rexdale-Kipling;Y
+Elms-Old Rexdale;Y
+Pelmo Park-Humberlea;Y
+Downsview-Roding-CFB;Y
+Kingsview Village-The Westway;Y
+Weston;Y
+Rustic;Y
+Humber Heights-Westmount;Y
+Brookhaven-Amesbury;Y
+Mount Dennis;Y
+Willowridge-Martingrove-Richview;Y
+Princess-Rosethorn;Y
+Eringate-Centennial-West Deane;Y
+Edenbridge-Humber Valley;Y
+Rockcliffe-Smythe;Y
+Markland Woods;Y
+Etobicoke West Mall;Y
+Islington-City Centre West;Y
+Alderwood;Y
+Long Branch;Y
+New Toronto;Y
+Mimico;Y
+Stonegate-Queensway;Y
+Kingsway South;Y
+Lambton Baby Point;Y
+High Park-Swansea;Y
+Runnymede-Bloor West Village;Y
+High Park North;Y
+Junction Area;Y
+Roncesvalles;Y
+South Parkdale;Y
+Dufferin Grove;Y
+Little Portugal;Y
+Dovercourt-Wallace Emerson-Juncti;Y
+Niagara;Y
+Weston-Pellam Park;Y
+Palmerston-Little Italy;Y
+University;Y
+Kensington-Chinatown;Y
+Waterfront Communities-The Island;Y
+Annex;Y
+Wychwood;Y
+Corsa Italia-Davenport;Y
+Oakwood-Vaughan;Y
+Humewood-Cedarvale;Y
+Casa Loma;Y
+Forest Hill South;Y
+Yonge-St.Clair;Y
+Bay Street Corridor;Y
+Rosedale-Moore Park;Y
+Church-Yonge Corridor;Y
+Caledonia-Fairbanks;Y
+North St.James Town;Y
+Cabbagetown-South St.James Town;Y
+Moss Park;Y
+Regent Park;Y
+Playter Estates-Danforth;Y
+South Riverdale;Y
+North Riverdale;Y
+Blake-Jones;Y
+Danforth Village - Toronto;Y
+Broadview North;Y
+Old East York;Y
+Danforth Village - East York;Y
+Greenwood-Coxwell;N
+Woodbine Corridor;N
+Maple Leaf;N
+Beechborough-Greenbrook;N
+Keelesdale-Eglinton West;N
+Briar Hill-Belgravia;N
+Yorkdale-Glen Park;N
+Forest Hill North;N
+Englemount-Lawrence;N
+Bedford Park-Nortown;N
+Lawrence Park South;N
+Yonge-Eglinton;N
+Mount Pleasant West;N
+Lawrence Park North;N
+Mount Pleasant East;N
+Black Creek;N
+Glenfield-Jane Heights;N
+York University Heights;N
+Bathurst Manor;N
+Westminster-Branson;N
+Clanton Park;N
+Lansing-Westgate;N
+Willowdale West;N
+Newtonbrook West;N
+Newtonbrook East;N
+Willowdale East;N
+Bayview Woods-Steeles;N
+Bayview Village;N
+St.Andrew-Windfields;N
+Don Valley Village;N
+Henry Farm;N
+Pleasant View;N
+Parkwoods-Donalda;N
+Tam O'Shanter-Sullivan;N
+Bridle Path-Sunnybrook-York Mills;N
+Leaside-Bennington;N
+Banbury-Don Mills;N
+Thorncliffe Park;N
+Flemingdon Park;N
+Victoria Village;N
+O'Connor-Parkview;N
+The Beaches;N
+East End-Danforth;N
+Woodbine-Lumsden;N
+Crescent Town;N
+Birchcliffe-Cliffside;N
+Oakridge;N
+Clairlea-Birchmount;N
+Wexford\/Maryvale;N
+Dorset Park;N
+Ionview;N
+Kennedy Park;N
+Cliffcrest;N
+Eglinton East;N
+Bendale;N
+Scarborough Village;N
+Woburn;N
+Guildwood;N
+Morningside;N
+West Hill;N
+Rouge;N
+Centennial Scarborough;N
+Highland Creek;N
+Malvern;N
+Hillcrest Village;N
+Steeles;N
+L'Amoreaux;N
+Agincourt South-Malvern West;N
+Milliken;N
+Agincourt North;N

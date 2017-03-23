@@ -3,7 +3,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class CreateTable{
+public class GetData{
     public static void main(String[] args) {
         try{
             Class.forName("com.mysql.jdbc.Driver");
@@ -13,30 +13,11 @@ public class CreateTable{
 
             stmt = conn.createStatement();
 
-            String sql = "CREATE DATABASE black_ice_project";
-
-            System.out.println(sql);
-
-            //stmt.execute(sql);
-
-            System.out.println("Created Database");
-
-            sql = "CREATE TABLE raw_data "+
+            String sql = "CREATE TABLE IsthereBlackIce "+
                     "(time_gmt DATETIME, " +
                     "time_local DATETIME, " +
                     "neighbourhood TEXT, " +
-                    "temp_c INT(11), " +
-                    "temp_f INT(11), " +
-                    "feels_c INT(11), " +
-                    "fells_f INT(11), " +
-                    "pop INT(11), " +
-                    "wind_dir TEXT, " +
-                    "wind_sp_k INT(11), " +
-                    "wind_sp_m INT(11), " +
-                    "wind_gust_k INT(11), " +
-                    "wind_gust_m INT(11), " +
-                    "fxicon INT(11), " +
-                    "`desc` TEXT);";
+                    "BlackIce INT(11));";
 
             System.out.println(sql);
 
