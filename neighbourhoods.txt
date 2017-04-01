@@ -51,23 +51,23 @@ Oakwood-Vaughan
 Humewood-Cedarvale
 Casa Loma
 Forest Hill South
-Yonge-St.Clair
+Yonge-St Clair
 Bay Street Corridor
 Rosedale-Moore Park
 Church-Yonge Corridor
-Caledonia-Fairbanks
-North St.James Town
-Cabbagetown-South St.James Town
+Caledonia-Fairbank
+North St James Town
+Cabbagetown South St James Town
 Moss Park
 Regent Park
-Playter Estates-Danforth
+Playter Estates Danforth
 South Riverdale
 North Riverdale
 Blake-Jones
-Danforth Village - Toronto
+Danforth Village Toronto
 Broadview North
 Old East York
-Danforth Village - East York
+Danforth Village East York
 Greenwood-Coxwell
 Woodbine Corridor
 Maple Leaf
@@ -96,7 +96,7 @@ Newtonbrook East
 Willowdale East
 Bayview Woods-Steeles
 Bayview Village
-St.Andrew-Windfields
+St Andrew-Windfields
 Don Valley Village
 Henry Farm
 Pleasant View
@@ -116,7 +116,7 @@ Crescent Town
 Birchcliffe-Cliffside
 Oakridge
 Clairlea-Birchmount
-Wexford\/Maryvale
+Wexford-Maryvale
 Dorset Park
 Ionview
 Kennedy Park
