@@ -54,18 +54,12 @@
     		map.data.setStyle(function(feature)
     		{
     			var SNOW = feature.getProperty('SNOW');
-    			var color = "green";
-
-
-    			if (SNOW[0] == "Y")
-    			{
-    				color = "#B33A3A";
-    			}
+    			var color = getColor(SNOW[0]);
     			return {
     				fillColor: color,
     				strokeWeight: 0.25,
-    				strokeOpacity: 0.25,
-    				fillOpacity: 0.75
+    				strokeOpacity: 0.75,
+    				fillOpacity:1
     			}
     		});
 
@@ -81,18 +75,12 @@
 		map.data.setStyle(function(feature)
 		{
 			var SNOW = feature.getProperty('SNOW');
-			var color = "green";
-
-
-			if (SNOW[newValue] == "Y")
-			{
-				color = "#B33A3A";
-			}
+			var color = getColor(SNOW[newValue]);
 			return {
 				fillColor: color,
 				strokeWeight: 0.25,
-				strokeOpacity: 0.25,
-				fillOpacity: 0.75
+				strokeOpacity: 0.75,
+				fillOpacity: 1
 			}
 		});
 
@@ -115,6 +103,16 @@
   	  		}, 200)
   	  	}
   	  }
+
+      function getColor(temp) {
+        return temp < -5 ? '#800026' :
+          temp < -3  ? '#BD0026' :
+          temp < -1  ? '#E31A1C' :
+          temp < 1  ? '#FC4E2A' :
+          temp < 3   ? '#FD8D3C' :
+          temp < 5   ? '#FEB24C' :
+                      '#FFEDA0';
+      }
 	
     </script>
     <script async defer

@@ -14,10 +14,11 @@ db = MySQLdb.connect(host="localhost", user="root",
 cur = db.cursor()
 
 def mapSnow(x):
-	if x < -2:
-		return 'Y'
-	else:
-		return 'N'
+	return x;
+	# if x < -2:
+	# 	return 'Y'
+	# else:
+	# 	return 'N'
 
 @route('/')
 def hello():
