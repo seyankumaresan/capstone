@@ -5,12 +5,13 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
-import java.sql.Statement;
+//import java.sql.Statement;
 
 public class Prediction 
 {	
 	// used by both of our predictive algorithms
 	static double MAXIMUM_TEMPERATURE = 5.;
+	static int NUMHOODS = 140;
 	
 	static String[] blacklist = {
 		"Heavy Rain",
@@ -160,57 +161,64 @@ public class Prediction
 	}
 	
 	public static void main(String[] args) {
-		// TODO: use this when database is set up properly
-		//List<WeatherData> dataset = Database.getLatestData();
+		//get neighbourhoods
+
+/*String Name = "Trinity-Bellwoods,West Humber-Clairville,Mount Olive-Silverstone-Jamestown,Humber Summit,Thistletown-Beaumond Heights,Humbermede,Rexdale-Kipling,Elms-Old Rexdale,Pelmo Park-Humberlea,Downsview-Roding-CFB,Kingsview Village-The Westway,Weston,Rustic,Humber Heights-Westmount,Brookhaven-Amesbury,Mount Dennis,Willowridge-Martingrove-Richview,Princess-Rosethorn,Eringate-Centennial-West Deane,Edenbridge-Humber Valley,Rockcliffe-Smythe,Markland Wood,Etobicoke West Mall,Islington-City Centre West,Alderwood,Long Branch,New Toronto,Mimico,Stonegate-Queensway,Kingsway South,Lambton Baby Point,High Park-Swansea,Runnymede-Bloor West Village,High Park North,Junction Area,Roncesvalles,South Parkdale,Dufferin Grove,Little Portugal,Dovercourt-Wallace Emerson-Juncti,Niagara,Weston-Pellam Park,Palmerston-Little Italy,University,Kensington-Chinatown,Waterfront Communities-The Island,Annex,Wychwood,Corso Italia-Davenport,Oakwood-Vaughan,Humewood-Cedarvale,Casa Loma,Forest Hill South,Yonge-St Clair,Bay Street Corridor,Rosedale-Moore Park,Church-Yonge Corridor,Caledonia-Fairbank,North St James Town,Cabbagetown South St James Town,Moss Park,Regent Park,Playter Estates Danforth,South Riverdale,North Riverdale,Blake-Jones,Danforth Village Toronto,Broadview North,Old East York,Danforth Village East York,Greenwood-Coxwell,Woodbine Corridor,Maple Leaf,Beechborough-Greenbrook,Keelesdale-Eglinton West,Briar Hill-Belgravia,Yorkdale-Glen Park,Forest Hill North,Englemount-Lawrence,Bedford Park-Nortown,Lawrence Park South,Yonge-Eglinton,Mount Pleasant West,Lawrence Park North,Mount Pleasant East,Black Creek,Glenfield-Jane Heights,York University Heights,Bathurst Manor,Westminster-Branson,Clanton Park,Lansing-Westgate,Willowdale West,Newtonbrook West,Newtonbrook East,Willowdale East,Bayview Woods-Steeles,Bayview Village,St Andrew-Windfields,Don Valley Village,Henry Farm,Pleasant View,Parkwoods-Donalda,Tam O''Shanter-Sullivan,Bridle Path-Sunnybrook-York Mills,Leaside-Bennington,Banbury-Don Mills,Thorncliffe Park,Flemingdon Park,Victoria Village,O''Connor-Parkview,The Beaches,East End-Danforth,Woodbine-Lumsden,Crescent Town,Birchcliffe-Cliffside,Oakridge,Clairlea-Birchmount,Wexford-Maryvale,Dorset Park,Ionview,Kennedy Park,Cliffcrest,Eglinton East,Bendale,Scarborough Village,Woburn,Guildwood,Morningside,West Hill,Rouge,Centennial Scarborough,Highland Creek,Malvern,Hillcrest Village,Steeles,L''Amoreaux,Agincourt South-Malvern West,Milliken,Agincourt North,";
+String temp;
+int i =0;
+
+	String[] tokens = Name.split(",");
+	//if(tokens.length!=2){throw new IllegalArgumentException();}
+
+while (i<NUMHOODS)
+{ 
+	temp = tokens[i];
+
+	List<WeatherData> dataset = Database.AddWeatherData(temp);
+	i ++;
+
+}*/
+
+
+
+
+
+
+
+		List<Neighbourhood> neighbourhoods = Database.getNeighbourhoods();
+
 		
-		// TODO: this is for testing of our prediction algorithms
-		List<WeatherData> dataset = new ArrayList<WeatherData>();
+			int i = 0;
+			while(i < NUMHOODS)
+			{
+
+						//get data from the raw_data table that has weather information
+				List<WeatherData> dataset = Database.getLatestData(neighbourhoods.get(i).neighbourhood);
+				
+				int BlackIce = 0;
+				
+				if ( predict(dataset) )
+				{
+					//System.out.println("Black ice!");
+					BlackIce = 1;
+					
+				}
+				
+				//
+				WeatherData data = dataset.get(0);
+				
+				//SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CANADA);
+				//System.out.println(data.neighbourhood + " " +data.datetime);//.getTime());
+				//System.out.println(dataset.get(23).neighbourhood + " " + dataset.get(23));//.datetime);
+				
+				Database.SendPrediction(data.datetime, neighbourhoods.get(i).neighbourhood, BlackIce);
+
+				i++;
+
+			}
 		
-		// datetime field does not matter because algorithm assumes
-		// sorted array. where and fxicon also doesn't matter
-		dataset.add(new WeatherData(24, 0, "hell", -4, 30, 70, " Light Rain", 0));
-		dataset.add(new WeatherData(23, 0, "hell", -3, 30, 70, "Light Rain", 0));
-		dataset.add(new WeatherData(22, 0, "hell", -3, 30, 70, "Clear", 0));
-		dataset.add(new WeatherData(21, 0, "hell", -2, 30, 70, "Clear", 0));
-		dataset.add(new WeatherData(20, 0, "hell", -2, 30, 70, "Clear", 0));
-		dataset.add(new WeatherData(19, 0, "hell", -2, 30, 70, "Clear", 0));
-		dataset.add(new WeatherData(18, 0, "hell", -1, 30, 70, "Clear", 0));
-		dataset.add(new WeatherData(17, 0, "hell", 0, 30, 70, "Rain", 0));
-		dataset.add(new WeatherData(16, 0, "hell", 0, 30, 70, "Rain", 0));
-		dataset.add(new WeatherData(15, 0, "hell", 1, 30, 70, "Rain", 0));
-		dataset.add(new WeatherData(14, 0, "hell", 2, 30, 70, "Rain", 0));
-		dataset.add(new WeatherData(13, 0, "hell", 3, 30, 70, "Rain", 0));
-		dataset.add(new WeatherData(12, 0, "hell", 4, 30, 70, "Rain", 0));
-		dataset.add(new WeatherData(11, 0, "hell", 5, 30, 70, "Rain", 0));
-		dataset.add(new WeatherData(10, 0, "hell", 7, 30, 70, "Rain", 0));
-		dataset.add(new WeatherData(9, 0, "hell", 8, 30, 70, "Rain", 0));
-		dataset.add(new WeatherData(8, 0, "hell", 7, 30, 70, "Rain", 0));
-		dataset.add(new WeatherData(7, 0, "hell", 3, 30, 70, "Rain", 0));
-		dataset.add(new WeatherData(6, 0, "hell", 4, 30, 70, "Rain", 0));
-		dataset.add(new WeatherData(5, 0, "hell", 4, 30, 70, "Rain", 0));
-		dataset.add(new WeatherData(4, 0, "hell", 4, 30, 70, "Rain", 0));
-		dataset.add(new WeatherData(3, 0, "hell", 6, 30, 70, "Rain", 0));
-		dataset.add(new WeatherData(2, 0, "hell", 5, 30, 70, "Rain", 0));
-		dataset.add(new WeatherData(1, 0, "hell", 4, 30, 70, "Rain", 0));
-		
-		int BlackIce = 0;
-		
-		if ( predict(dataset) )
-		{
-			//System.out.println("Black ice!");
-			BlackIce = 1;
-			
-		}
-	/*else 
-		{
-			System.out.println("No black ice");
-		}*/
-		
-		WeatherData data = dataset.get(0);
-		
-		
-		
-		Database.SendPrediction(data.neighbourhood, BlackIce);
+
+	
 		
 	}
 }

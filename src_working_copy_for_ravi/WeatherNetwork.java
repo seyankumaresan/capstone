@@ -26,7 +26,7 @@ public class WeatherNetwork {
         String neighbourhoods[] = new String[140];
         readFile(neighbourhoods);
 
-        for(int i = 0; i < 140; i++) {
+        for(int i = 0; i < 139; i++) {
             getTorontoWeather(neighbourhoods[i]);
             insert_into_db(neighbourhoods[i]);
         }

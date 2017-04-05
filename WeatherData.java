@@ -6,7 +6,8 @@ import java.util.Date;
 
 public class WeatherData {
 	public int id;
-	public Date datetime;
+	//public Date datetime; long millisec
+	public String datetime;
 	public String neighbourhood;
 	public float temperature;	// in degrees C
 	public float wind_speed;	// in km/h
@@ -14,11 +15,12 @@ public class WeatherData {
 	public String description;
 	public int weather_icon;	// integer value for the description
 	
-	WeatherData(int id, long millisec, String where, float temp_c, float wind_sp_k,
+	WeatherData(int id, String millisec, String where, float temp_c, float wind_sp_k,
 			    float pop, String desc, int fxicon) 
 	{
 		this.id = id;
-		datetime = new Date(millisec);
+		//datetime = new Date(millisec);
+		datetime = millisec;
 		neighbourhood = where;
 		temperature = temp_c;
 		wind_speed = wind_sp_k;
@@ -27,3 +29,6 @@ public class WeatherData {
 		weather_icon = fxicon;
 	}
 }
+
+
+

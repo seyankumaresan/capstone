@@ -17,9 +17,8 @@ public class AddId {
 
             stmt = conn.createStatement();
 
-            String sql = "ALTER TABLE black_ice_project.raw_data ADD ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT;\n" +
-                    "ALTER TABLE black_ice_project.raw_data;\n" +
-                    "MODIFY COLUMN ID INT NOT NULL AUTO_INCREMENT FIRST;";
+           String sql = "ALTER TABLE black_ice_project.raw_data ADD ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT;\n";
+           // +"ALTER TABLE black_ice_project.raw_data MODIFY COLUMN ID INT NOT NULL AUTO_INCREMENT FIRST;";
 
             System.out.println(sql);
 
